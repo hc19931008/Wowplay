@@ -1,6 +1,6 @@
 
 	
-二、action统一继承common包中的baseAction
+yi、action统一继承common包中的baseAction
 	baseAction只可以添加需要用到的Service实体,分页参数;
 	其余的需要定义的与前后台交互的参数请定义在对应的action实体;
 	继承baseAction时<T>泛型请根据需要自己定义;
