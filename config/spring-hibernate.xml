@@ -63,7 +63,7 @@
                 <prop key="hibernate.dialect">${hibernate.oracle.dialect}</prop>
                 <prop key="hibernate.show_sql">${hibernate.oracle.show_sql}</prop>
                 <prop key="hibernate.format_sql">${hibernate.oracle.format_sql}</prop>
-                <prop key="hibernate.hbm2ddl.auto">${hibernate.oracle.hbm2ddl.auto}</prop>
+                <!--<prop key="hibernate.hbm2ddl.auto">${hibernate.oracle.hbm2ddl.auto}</prop>-->
                 <!--配置getCurrentSession-->
                 <prop key="current_session_context_class">thread</prop>
             </props>

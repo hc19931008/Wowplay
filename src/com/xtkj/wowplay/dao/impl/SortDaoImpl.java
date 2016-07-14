@@ -30,6 +30,7 @@ public class SortDaoImpl implements SortDao {
 
     @Override
     public Sort queryByName(Sort sort) {
+
         return null;
     }
 
@@ -40,6 +41,7 @@ public class SortDaoImpl implements SortDao {
 
     @Override
     public List<Sort> querySortByPId(Sort sort) {
+        baseDao.findByProperty(Sort.class.getName(), "pid", sort.getPid());
         return null;
     }
 
@@ -50,12 +52,15 @@ public class SortDaoImpl implements SortDao {
 
     @Override
     public List<Sort> queryByPid(Sort sort) {
+
         return null;
     }
 
     @Override
     public List<Sort> queryAllSort() {
-        return null;
+
+        return baseDao.listAll(Sort.class.getName());
+
     }
 
     @Override

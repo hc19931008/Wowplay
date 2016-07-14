@@ -1,17 +1,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" isELIgnored="false" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
+
 <!DOCTYPE html>
+
 <html>
 <head>
-    <%--微博/腾讯登陆接口--%>
-    <%--<meta property="wb:webmaster" content="e6647c2b95f7cef7" />--%>
-    <%--<meta property="qc:admins" content="32743656436341127561577236654" />--%>
-    <%--<meta property="qc:admins" content="3274365027620767011717676375" />--%>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
     <meta name="viewport"
@@ -46,8 +44,7 @@
     <script src="<%=basePath%>resources/front/assets/js/myfocus-2.0.1.min.js"></script>
     <script src="<%=basePath%>resources/front/assets/js/setHomeSetFav.js"></script>
     <script src="<%=basePath%>resources/front/assets/js/jquery-2.0.3.min.js"></script>
-    <script type="text/javascript"
-            src="<%=basePath%>resources/front/assets/js/jquery.bigautocomplete.js"></script>
+    <script type="text/javascript" src="<%=basePath%>resources/front/assets/js/jquery.bigautocomplete.js"></script>
     <script type="text/javascript">
         myFocus.set({
             id: 'boxID',//焦点图盒子ID
@@ -77,18 +74,36 @@
         </div>
         <nav class="collapse navbar-collapse pull-left">
             <ul class="nav navbar-nav topmenu">
-
-                <li><a href="#">我的课程 </a></li>
                 <li id="class_menu" class="nav-hover"><a
-                        href="#">分类<b
+                        href="<%=basePath%>views/front/courses.jsp">分类<b
                         class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="#">java</a>
-                        </li>
-                        <li>
-                            <a href="#">c++</a>
-                        </li>
+                    <ul id="sort" class="dropdown-menu">
+                        <c:if test="${sortList == null}">
+                            <script type="text/javascript">
+                                $(function () {
+                                    $.ajax({
+                                        type: 'post',
+                                        url: '<%=basePath%>Sort_getAll.action',
+                                        dataType: 'json',
+                                        success: function (data) {
+                                            for (var i = 0; i < data.length; i++) { //循环后台传过来的Json数组
+                                                var datas = data[i];
+                                                if (datas.pid == 0) {
+                                                    $("#sort").append("<li>" + "<a href='<%=basePath%>views/front/courses.jsp?sort.id=" + datas.id + "'>" + datas.name + "</a></li>");
+                                                }
+                                            }
+                                        }
+                                    });
+                                })
+                            </script>
+                        </c:if>
+                        <c:if test="${sortList!= null}">
+                            <c:forEach items="${sortList}" var="sort">
+                                <li>
+                                    <a href="<%=basePath%>views/front/courses.jsp?sort.id=${sort.id}">${sort.name}</a>
+                                </li>
+                            </c:forEach>
+                        </c:if>
                     </ul>
                 </li>
                 <li><a href="#">最新 </a></li>
@@ -174,19 +189,19 @@
             <nav class="hz-index-nav">
                 <ul class="clearfix">
                     <li id="class_1" value="0"><a href="#">热门推荐</a></li>
-                    <c:set var="course_num" value="1"></c:set>
-                    <c:forEach items="${sortList}" var="sort_1">
-                        <c:forEach items="${sort_1.chirdList}" var="sort_2">
-                            <c:forEach items="${sort_2.chirdList}" var="sort_3" end="1">
-                                <c:if test="${course_num<10}">
-                                    <li id="class_${course_num+1}" value="${course_num}">
-                                        <a href="../front/sort_initSortTitle.action?sort.id=${sort_3.id}">${sort_3.name}</a>
-                                    </li>
-                                    <c:set var="course_num" value="${course_num+1}"></c:set>
-                                </c:if>
-                            </c:forEach>
-                        </c:forEach>
-                    </c:forEach>
+                    <%--<c:set var="course_num" value="1"></c:set>--%>
+                    <%--<c:forEach items="${sortList}" var="sort_1">--%>
+                        <%--<c:forEach items="${sort_1.chirdList}" var="sort_2">--%>
+                            <%--<c:forEach items="${sort_2.chirdList}" var="sort_3" end="1">--%>
+                                <%--<c:if test="${course_num<10}">--%>
+                                    <%--<li id="class_${course_num+1}" value="${course_num}">--%>
+                                        <%--<a href="../front/sort_initSortTitle.action?sort.id=${sort_3.id}">${sort_3.name}</a>--%>
+                                    <%--</li>--%>
+                                    <%--<c:set var="course_num" value="${course_num+1}"></c:set>--%>
+                                <%--</c:if>--%>
+                            <%--</c:forEach>--%>
+                        <%--</c:forEach>--%>
+                    <%--</c:forEach>--%>
                 </ul>
                 <div id="youbiao_classes" class="bottom-act hidden-xs hidden-sm"
                      style="margin-left: 336px;"></div>

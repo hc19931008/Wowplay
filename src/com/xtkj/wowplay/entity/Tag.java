@@ -1,40 +1,44 @@
+// default package
 package com.xtkj.wowplay.entity;
 
-import javax.persistence.*;
 
-/**
- * Created by Administrator on 2016/7/12 0012.
- */
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
+
 @Entity
-@Table(name="tb_Tag")
-public class Tag {
-    /**
-     * 标签 id
-     */
+@Table(name = "TB_TAG")
+public class Tag implements Serializable {
+
     private int id;
-    /**
-     * 标签名字
-     */
     private String name;
     /**
-     * 类别id
+     * sortid
      */
-    private int sortId;
+    private Sort sort;
+    private Set courses = new HashSet(0);
 
 
     public Tag() {
     }
 
-    public Tag(int id, String name, int sortId) {
+    public Tag(int id, String name) {
         this.id = id;
         this.name = name;
-        this.sortId = sortId;
+    }
+
+    public Tag(int id, String name, Set courses) {
+        this.id = id;
+        this.name = name;
+        this.courses = courses;
     }
 
     @Id
-//    @GeneratedValue(strategy= GenerationType.SEQUENCE)
+    @GeneratedValue
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(int id) {
@@ -42,19 +46,36 @@ public class Tag {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    @Column(name="sid")
-    public int getSortId() {
-        return sortId;
+    @ManyToOne(cascade = CascadeType.ALL,targetEntity = Sort.class)
+    @JoinColumn(name="sid")
+    public Sort getSort() {
+        return sort;
     }
 
-    public void setSortId(int sortId) {
-        this.sortId = sortId;
+
+    public void setSort(Sort sort) {
+        this.sort = sort;
     }
+
+    @ManyToMany(
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            mappedBy = "tags",
+            targetEntity = Course.class
+    )
+    public Set getCourses() {
+        return this.courses;
+    }
+
+    public void setCourses(Set courses) {
+        this.courses = courses;
+    }
+
+
 }

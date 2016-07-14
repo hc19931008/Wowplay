@@ -2,39 +2,40 @@ package com.xtkj.wowplay.action;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts2.ServletActionContext;
+import com.opensymphony.xwork2.ActionSupport;
 
 import com.opensymphony.xwork2.ActionContext;
+
 
 /**
  * 获取servlet API
  * @author Wangyan
  *
  */
-public class BaseAction {
+public class BaseAction extends ActionSupport {
+
+
+	private  ActionContext ctx = ActionContext.getContext();
 	
-	public Map getRequest(){
-		return (Map) ActionContext.getContext().get("request");
+	public HttpServletRequest getRequest(){
+		return  (HttpServletRequest) ctx.get(org.apache.struts2.StrutsStatics.HTTP_REQUEST);
 	}
 	
-	public Map getSession(){
+	public  Map<String,Object> getSession(){
 		
-		return (Map)ActionContext.getContext().getSession();
+		return ctx.getSession();
 	}
 	
-	public Map getApplication(){
+	public  Map<String,Object> getApplication(){
 		
-		return (Map)ActionContext.getContext().getApplication();
+		return ctx.getApplication();
 	}
 	
-	public HttpServletResponse getResponse(){
-		
-		HttpServletResponse response=ServletActionContext.getResponse();
-		response.setContentType("text/html;charset=utf-8");
-		response.setCharacterEncoding("utf-8");
-		return response;
+	public  HttpServletResponse getResponse(){
+		return (HttpServletResponse) ctx.get(org.apache.struts2.StrutsStatics.HTTP_RESPONSE);
 	}
 	
 }

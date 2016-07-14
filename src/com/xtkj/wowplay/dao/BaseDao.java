@@ -58,4 +58,6 @@ public interface BaseDao {
 	
 	/** 分页查询指定类的满足条件的持久化对象 */
 	public <T> List<T> findByHql(String hql, int start, int limit);
+
+	public <T> List<T> findByHql(String hql);
 }

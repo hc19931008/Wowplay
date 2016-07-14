@@ -20,6 +20,13 @@ import javax.annotation.Resource;
 @Component("baseDao")
 public class BaseDaoImpl implements BaseDao {
 	private SessionFactory sessionFactory;
+
+	/** 使用hql查询*/
+	@Override
+	public <T> List<T> findByHql(String hql){
+		return this.querySession().createQuery(hql).list();
+	}
+
 	
 	/**获取session*/
 	@Override
@@ -54,6 +61,8 @@ public class BaseDaoImpl implements BaseDao {
 		this.querySession().delete(obj);
 	}
 
+
+
 ///////////////////////////////查询///////////////////////////////////////////	
 	/** 装载指定类的精确查询结果 */
 	@Override
@@ -85,7 +94,7 @@ public class BaseDaoImpl implements BaseDao {
 	
 	/** 装载指定类的所有持久化对象 */
 	@Override
-	public List listAll(String clazz){
+	public <T> List<T> listAll(String clazz){
 		String hql="from "+clazz;
 		return this.querySession().createQuery(hql).list();
 	}
@@ -96,8 +105,7 @@ public class BaseDaoImpl implements BaseDao {
 	public int countAll(String clazz){
 		String hql="select count(*) from "+clazz;
 		Query query=this.querySession().createQuery(hql);
-		String num=(String)query.uniqueResult();
-		return Integer.parseInt(num);
+		return Integer.valueOf(query.uniqueResult().toString());
 	}
 
 	/** 使用hql语句统计指定类的查询结果 */
@@ -149,7 +157,7 @@ public class BaseDaoImpl implements BaseDao {
 
 	/** 分页装载指定类的所有持久化对象 */
 	@Override
-	public List listAll(String clazz, int start, int limit){
+	public <T> List<T> listAll(String clazz, int start, int limit){
 		String hql="from "+clazz;
 		return this.findByHql(hql, start, limit);
 	}
