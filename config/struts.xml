@@ -24,15 +24,19 @@
 	<!-- 允许标签中使用表达式语法 -->
 	<constant name="struts.tag.altSyntax" value="true" />
 
-	<package name="default" extends="struts-default">
+
+	<package name="front" namespace="/" extends="json-default">
 		<interceptors>
-			<interceptor-stack name="defaultStack">
-				<interceptor-ref name="exception"/>
-				<interceptor-ref name="servletConfig"/>
-				<interceptor-ref name="actionMappingParams"/>
-				<interceptor-ref name="staticParams"/>
-				<interceptor-ref name="params"/>
+			<!-- 自定义的拦截器栈-->
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="defaultStack"/>
 			</interceptor-stack>
 		</interceptors>
+
+		<action name="*_*" method="{2}" class="com.xtkj.wowplay.action.{1}Action">
+		<result name="index">/views/front/index.jsp</result>
+		</action>
+
 	</package>
+
 </struts>

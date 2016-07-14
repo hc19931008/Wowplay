@@ -1,5 +1,6 @@
 package com.xtkj.wowplay.service;
 
+import com.xtkj.wowplay.dto.SortDTO;
 import com.xtkj.wowplay.entity.Sort;
 
 import java.util.List;
@@ -10,9 +11,8 @@ import java.util.List;
 public interface SortService {
 
     /**
-     * 根据pid取出一级分类和二级分类
+     * 取出一级分类和二级分类
      */
-    List<Sort> selectSortList(int pid);
-
+    List<SortDTO> getAllSortList();
 
 }

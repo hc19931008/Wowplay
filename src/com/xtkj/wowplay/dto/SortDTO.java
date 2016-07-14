@@ -1,41 +1,37 @@
 // default package
-package com.xtkj.wowplay.entity;
+package com.xtkj.wowplay.dto;
 
-
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
 
 
-@Entity
-@Table(name="tb_sort")
-public class Sort implements Serializable {
-
+public class SortDTO{
      private int id;
      private String name;
      private int pid;
-     private Set tags = new HashSet(0);
+     private String tags ;
 
-    public Sort() {
+    public SortDTO() {
     }
 
-    public Sort(int id, String name, int pid) {
+    public SortDTO(int id, String name, int pid) {
         this.id = id;
         this.name = name;
         this.pid = pid;
+
     }
 
-    public Sort(int id, String name, int pid, Set tags) {
+    public SortDTO(int id, String name, int pid,String tags) {
         this.id = id;
         this.name = name;
         this.pid = pid;
-        this.tags = tags;
+        this.tags=tags;
     }
 
-    @Id
-    @GeneratedValue
+
     public int getId() {
         return this.id;
     }
@@ -59,12 +55,12 @@ public class Sort implements Serializable {
     public void setPid(int pid) {
         this.pid = pid;
     }
-    @OneToMany(mappedBy = "sort",targetEntity = Tag.class,cascade = CascadeType.ALL)
-    public Set getTags() {
+
+    public String getTags() {
         return tags;
     }
 
-    public void setTags(Set tags) {
+    public void setTags(String tags) {
         this.tags = tags;
     }
 }
