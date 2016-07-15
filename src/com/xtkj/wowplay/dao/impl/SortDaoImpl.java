@@ -4,6 +4,7 @@ import com.xtkj.wowplay.dao.BaseDao;
 import com.xtkj.wowplay.dao.SortDao;
 import com.xtkj.wowplay.entity.Sort;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -11,16 +12,15 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/7/12 0012.
  */
-@Component("sortDao")
+@Repository("sortDao")
 public class SortDaoImpl implements SortDao {
 
 
     private BaseDao baseDao;
 
     @Override
-    public Sort queryById(Sort sort) {
-
-        return null;
+    public Sort queryById(int id) {
+        return baseDao.findObjectById("Sort", id);
     }
 
     @Override

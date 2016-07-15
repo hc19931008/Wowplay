@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.xtkj.wowplay.dao.BaseDao;
+import com.xtkj.wowplay.entity.Tag;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 
@@ -16,18 +18,12 @@ import javax.annotation.Resource;
  * @author Wangyan
  *
  */
-@Component("baseDao")
+@Repository("baseDao")
 public class BaseDaoImpl implements BaseDao {
+
 	private SessionFactory sessionFactory;
 
-	/** 使用hql查询*/
-	@SuppressWarnings("unchecked")
-	@Override
-	public <T> List<T> findByHql(String hql){
-		return this.querySession().createQuery(hql).list();
-	}
 
-	
 	/**获取session*/
 	@Override
 	public Session querySession(){
@@ -46,24 +42,25 @@ public class BaseDaoImpl implements BaseDao {
 	public void saveOrUpdate(Object obj){
 		this.querySession().saveOrUpdate(obj);
 	}
-	
-///////////////////////////////删除///////////////////////////////////////////	
-	/** 通过hql语句删除满足条件的持久化对象*/
+
 	@Override
-	public void deleteByHql(String hql,Object[] value) {
+	public void deleteByHql(String hql, Object[] value) {
 		Query query=this.querySession().createQuery(hql);
 		for(int i=0;i<value.length;i++){
 			query.setParameter(i, value[i]);
 		}
 		query.executeUpdate();
 	}
-	
+
+
+///////////////////////////////删除///////////////////////////////////////////	
+
 	/** 删除指定ID的持久化对象 */
 	@Override
-	public  void deleteById(@SuppressWarnings("rawtypes") Class clazz, Serializable id){
+	public void deleteById(String clazz, Serializable id) {
 		this.querySession().delete(this.querySession().load(clazz, id));
-	}
 
+	}
 
 	/** 删除指定的持久化对象 */
 	@Override
@@ -72,21 +69,33 @@ public class BaseDaoImpl implements BaseDao {
 	}
 
 
+///////////////////////////////查询///////////////////////////////////////////
 
-///////////////////////////////查询///////////////////////////////////////////	
-	/**根据hql语句查询指定的持久化对象*/
-	@SuppressWarnings("unchecked")
+
 	@Override
-	public <T>List<T> findByHql(String hql, Object[] value) {
+	public Object  findObjectById(String clazz, int id) {
+		String hql = "from "+clazz+" as model where model.id = "+id;
+		return this.querySession().createQuery(hql).uniqueResult();
+	}
+
+
+	/** 使用hql查询*/
+	@Override
+	public <T> List<T> findByHql(String hql){
+		return this.querySession().createQuery(hql).list();
+	}
+
+	/** 使用hql查询*/
+	@Override
+	public <T> List<T> findByHql(String hql, Object[] value) {
 		Query query=this.querySession().createQuery(hql);
 		for(int i=0;i<value.length;i++){
 			query.setParameter(i,value[i]);
 		}
 		return query.list();
 	}
-	
+
 	/** 装载指定类的精确查询结果 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public <T> List<T> findByProperty(String clazz, String propertyName, Object value){
 		String hql="from "+clazz+" as model where model."+propertyName+"=?";
@@ -94,7 +103,6 @@ public class BaseDaoImpl implements BaseDao {
 	}
 	
 	/** 装载指定类的模糊查询结果 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public <T> List<T> findLikeProperty(String clazz, String propertyName, String value){
 		String hql="from "+clazz+" as model where model."+propertyName+" like ?";
@@ -102,7 +110,6 @@ public class BaseDaoImpl implements BaseDao {
 	}
 	
 	/** 装载指定类的多项条件查询查询结果 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public <T> List<T> findByProperty(String clazz, String[] propertyName, Object[] value){
 		String hql="from "+clazz+" as model where 1=1";
@@ -117,7 +124,6 @@ public class BaseDaoImpl implements BaseDao {
 	}
 	
 	/** 装载指定类的所有持久化对象 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public <T> List<T> listAll(String clazz){
 		String hql="from "+clazz;
@@ -134,7 +140,6 @@ public class BaseDaoImpl implements BaseDao {
 	}
 
 	/** 使用hql语句统计指定类的查询结果 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public int countQuery(String hql){
 		Query query=this.querySession().createQuery(hql);
@@ -148,7 +153,6 @@ public class BaseDaoImpl implements BaseDao {
 	
 ////////////////////////////分页//////////////////////////////////////////
 	/** 使用hql分页查询指定类的满足条件的持久化对象 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public <T> List<T> findByHql(String hql, int start, int limit){
 		return this.querySession().createQuery(hql).setFirstResult(start).setMaxResults(limit).list();

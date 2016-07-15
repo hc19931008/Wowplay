@@ -9,9 +9,9 @@ import java.util.Set;
 public class TagDTO  {
 
 
-     private String id;
+     private int id;
      private String name;
-     private Set courseTags = new HashSet(0);
+     private Set courses = new HashSet(0);
 
      private String courseId;
      
@@ -19,25 +19,25 @@ public class TagDTO  {
     public TagDTO() {
     }
 
-    public TagDTO(String id, String name) {
+    public TagDTO(int id, String name) {
         this.id = id;
         this.name = name;
     }
     
 
-    public TagDTO(String id, String name, Set courseTags) {
+    public TagDTO(int id, String name, Set courseTags) {
         this.id = id;
         this.name = name;
-        this.courseTags = courseTags;
+        this.courses = courseTags;
     }
 
    
 
-    public String getId() {
+    public int getId() {
         return this.id;
     }
     
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -49,12 +49,12 @@ public class TagDTO  {
         this.name = name;
     }
 
-    public Set getCourseTags() {
-        return this.courseTags;
+    public Set getCourses() {
+        return this.courses;
     }
     
-    public void setCourseTags(Set courseTags) {
-        this.courseTags = courseTags;
+    public void setCourses(Set courses) {
+        this.courses = courses;
     }
 
 	public String getCourseId() {
