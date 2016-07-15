@@ -20,11 +20,17 @@ public interface BaseDao {
 	/** 保存或更新指定的持久化对象 */
 	public void saveOrUpdate(Object obj);
 	
+	/** 通过hql语句删除满足条件的指定的持久化对象*/
+	public void deleteByHql(String hql,Object[] value);
+	
 	/** 删除指定ID的持久化对象 */
 	public void deleteById(Class clazz, Serializable id);
 	
 	/** 删除指定的持久化对象 */
 	public void delete(Object obj);
+	
+	/** 通过hql语句查询持久化对象*/
+	public <T>List<T> findByHql(String hql,Object[] value);
 	
 	/** 装载指定类的模糊查询结果 */
 	public <T> List<T> findLikeProperty(String clazz, String propertyName, String value);
