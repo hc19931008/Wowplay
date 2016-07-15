@@ -1,6 +1,7 @@
 package com.xtkj.wowplay.service;
 
 import com.xtkj.wowplay.dto.SortDTO;
+import com.xtkj.wowplay.dto.TagDTO;
 
 import java.util.List;
 
@@ -10,8 +11,10 @@ import java.util.List;
 public interface TagService {
 
     /**
-     * 取出一级分类和二级分类
+     * 取出tag表标签
      */
-    List<SortDTO> getAllSortList();
+    List<TagDTO> getTagListBySortId(String sortId);
+
+
 
 }

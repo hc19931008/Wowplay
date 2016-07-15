@@ -15,4 +15,5 @@ public interface SortService {
      */
     List<SortDTO> getAllSortList();
 
+    Sort getSortNameById(String sortId);
 }

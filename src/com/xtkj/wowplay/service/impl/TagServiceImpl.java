@@ -1,41 +1,46 @@
 package com.xtkj.wowplay.service.impl;
 
-import com.xtkj.wowplay.dao.SortDao;
-import com.xtkj.wowplay.dto.SortDTO;
-import com.xtkj.wowplay.entity.Sort;
-import com.xtkj.wowplay.service.SortService;
+
+import com.xtkj.wowplay.dao.TagDao;
+
+import com.xtkj.wowplay.dto.TagDTO;
+
+import com.xtkj.wowplay.entity.Tag;
+import com.xtkj.wowplay.service.TagService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Administrator on 2016/7/12 0012.
  */
-@Service("sortService")
-public class TagServiceImpl implements SortService {
+@Service("tagService")
+public class TagServiceImpl implements TagService {
 
-
-    private SortDao sortDao;
-
+    private TagDao tagDao;
 
     @Override
-    public List<SortDTO> getAllSortList() {
-        List<SortDTO> sortList = new ArrayList<SortDTO>();
-
-        for (Sort sort : sortDao.queryAllSort()) {
-            sortList.add(new SortDTO(sort.getId(),sort.getName(),sort.getPid()));
+    public List<TagDTO> getTagListBySortId(String sortId) {
+        List<TagDTO> tagList = new ArrayList<TagDTO>();
+        List<Tag> tags = tagDao.getTagBySortId(Integer.valueOf(sortId));
+        for (Tag tag : tags) {
+            tagList.add(new TagDTO(tag.getId(), tag.getName()));
         }
-        return  sortList;
+        return tagList;
     }
 
-    public SortDao getSortDao() {
-        return sortDao;
+
+    /*getter and setter*/
+    public TagDao getTagDao() {
+        return tagDao;
     }
 
-    @Resource
-    public void setSortDao(SortDao sortDao) {
-        this.sortDao = sortDao;
+    @Resource(name = "tagDao")
+    public void setTagDao(TagDao tagDao) {
+        this.tagDao = tagDao;
     }
 }

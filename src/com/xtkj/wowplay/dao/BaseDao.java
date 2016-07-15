@@ -11,6 +11,13 @@ import org.hibernate.Session;
  *
  */
 public interface BaseDao {
+
+	/**
+	 * 获取特定对象
+	 */
+	public <T> T findObjectById(String clazz,int id);
+
+
 	/**获取session*/
 	public Session querySession();
 	
@@ -21,7 +28,7 @@ public interface BaseDao {
 	public void saveOrUpdate(Object obj);
 	
 	/** 删除指定ID的持久化对象 */
-	public void deleteById(Class clazz, Serializable id);
+	public void deleteById(String clazz, Serializable id);
 	
 	/** 删除指定的持久化对象 */
 	public void delete(Object obj);
@@ -60,4 +67,5 @@ public interface BaseDao {
 	public <T> List<T> findByHql(String hql, int start, int limit);
 
 	public <T> List<T> findByHql(String hql);
+
 }

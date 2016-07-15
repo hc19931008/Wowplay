@@ -89,7 +89,7 @@
                                             for (var i = 0; i < data.length; i++) { //循环后台传过来的Json数组
                                                 var datas = data[i];
                                                 if (datas.pid == 0) {
-                                                    $("#sort").append("<li>" + "<a href='<%=basePath%>views/front/courses.jsp?sort.id=" + datas.id + "'>" + datas.name + "</a></li>");
+                                                    $("#sort").append("<li>" + "<a href='<%=basePath%>/front/courses.jsp?sortId=" + datas.id + "sortName="+datas.name+"'>" + datas.name + "</a></li>");
                                                 }
                                             }
                                         }
@@ -99,9 +99,11 @@
                         </c:if>
                         <c:if test="${sortList!= null}">
                             <c:forEach items="${sortList}" var="sort">
+                                <c:if test="${sort.pid == 0}">
                                 <li>
-                                    <a href="<%=basePath%>views/front/courses.jsp?sort.id=${sort.id}">${sort.name}</a>
+                                    <a href="<%=basePath%>views/front/courses.jsp?sortId=${sort.id}&sortName=${sort.name}">${sort.name}</a>
                                 </li>
+                                </c:if>
                             </c:forEach>
                         </c:if>
                     </ul>
@@ -307,7 +309,7 @@
                                     src="<%=basePath%>resources/front/assets/img/hot_tag_mode1_8.jpg">
                             <span class="label label-b label-md">美食</span>
                         </a></li>
-                </div>
+                </ul></div>
             </div>
             <div class="more">
                 <a href="#">更多标签<i class="fa fa-angle-right"></i></a>

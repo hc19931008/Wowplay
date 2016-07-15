@@ -27,6 +27,8 @@ public class SortAction extends BaseAction {
         getResponse().getWriter().write(JSON.toJSONString(sortList));
     }
 
+
+
     /*getter setter*/
     public SortService getSortService() {
         return sortService;

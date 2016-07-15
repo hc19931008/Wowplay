@@ -53,7 +53,7 @@ public class Tag implements Serializable {
         this.name = name;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL,targetEntity = Sort.class)
+    @ManyToOne(targetEntity = Sort.class)
     @JoinColumn(name="sid")
     public Sort getSort() {
         return sort;
@@ -65,11 +65,12 @@ public class Tag implements Serializable {
     }
 
     @ManyToMany(
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            cascade= {CascadeType.PERSIST, CascadeType.MERGE},
             mappedBy = "tags",
             targetEntity = Course.class
     )
     public Set getCourses() {
+
         return this.courses;
     }
 

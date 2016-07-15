@@ -2,7 +2,9 @@ package com.xtkj.wowplay.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.xtkj.wowplay.dao.SortDao;
+import com.xtkj.wowplay.dao.TagDao;
 import com.xtkj.wowplay.dto.SortDTO;
+import com.xtkj.wowplay.dto.TagDTO;
 import com.xtkj.wowplay.entity.Sort;
 import com.xtkj.wowplay.service.SortService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import java.util.List;
 public class SortServiceImpl implements SortService {
 
 
+    @Autowired
     private SortDao sortDao;
 
 
@@ -28,17 +31,15 @@ public class SortServiceImpl implements SortService {
         List<SortDTO> sortList = new ArrayList<SortDTO>();
 
         for (Sort sort : sortDao.queryAllSort()) {
-            sortList.add(new SortDTO(sort.getId(),sort.getName(),sort.getPid(), JSON.toJSONString(sort.getTags())));
+            sortList.add(new SortDTO(sort.getId(),sort.getName(),sort.getPid()));
         }
         return  sortList;
     }
 
-    public SortDao getSortDao() {
-        return sortDao;
+    @Override
+    public Sort getSortNameById(String sortId) {
+        return sortDao.queryById(Integer.valueOf(sortId));
     }
 
-    @Resource
-    public void setSortDao(SortDao sortDao) {
-        this.sortDao = sortDao;
-    }
+
 }

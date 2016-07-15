@@ -11,7 +11,7 @@ import java.util.List;
 public interface SortDao {
 
     /**根据类别的id查询类别信息*/
-    public Sort queryById(Sort sort);
+    public Sort queryById(int id);
     /**删除类别*/
     public void deleteSort(Sort sort);
     /**根据类别的名字查询类别*/
