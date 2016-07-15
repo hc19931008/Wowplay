@@ -35,7 +35,7 @@ public interface BaseDao {
 	
 	/** 删除指定的持久化对象 */
 	public void delete(Object obj);
-	
+
 	/** 通过hql语句查询持久化对象*/
 	public <T>List<T> findByHql(String hql,Object[] value);
 	
