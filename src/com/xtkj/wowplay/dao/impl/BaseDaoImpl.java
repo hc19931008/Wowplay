@@ -9,34 +9,25 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 
 /**
  * 数据访问bean
+ * @author Wangyan
+ *
  */
-@Repository("baseDao")
+@Component("baseDao")
 public class BaseDaoImpl implements BaseDao {
 	private SessionFactory sessionFactory;
 
-//======wuwei=====//
 	/** 使用hql查询*/
 	@Override
 	public <T> List<T> findByHql(String hql){
 		return this.querySession().createQuery(hql).list();
 	}
 
-
-	/**
-	 * 查找特定对象
-     */
-	@Override
-	public Object findObjectById(String clazz, int id) {
-		return this.querySession().createQuery("from " + clazz + " as model where model.id = " + id);
-	}
-//======wuwei=====//
-
+	
 	/**获取session*/
 	@Override
 	public Session querySession(){
@@ -55,12 +46,11 @@ public class BaseDaoImpl implements BaseDao {
 	public void saveOrUpdate(Object obj){
 		this.querySession().saveOrUpdate(obj);
 	}
-
-
+	
 ///////////////////////////////删除///////////////////////////////////////////	
 	/** 删除指定ID的持久化对象 */
 	@Override
-	public  void deleteById(String clazz, Serializable id){
+	public  void deleteById(Class clazz, Serializable id){
 		this.querySession().delete(this.querySession().load(clazz, id));
 	}
 
