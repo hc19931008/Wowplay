@@ -16,9 +16,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<link rel="stylesheet" href="../../resources/back/css/style.css" type="text/css"></link>
-	<script language="JavaScript" src="../../resources/back/js/jquery.js"></script>
-	<script src="js/cloud.js" type="text/javascript"></script>
+	
+	
+	<script language="JavaScript" src="${pageContext.request.contextPath}/resources/back/js/jquery.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/back/js/cloud.js" type="text/javascript"></script>
 
 	<script language="javascript">
 		$(function(){
@@ -29,11 +30,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	});  
 	</script> 
 
-  </head>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/back/css/style.css" type="text/css"></link></head>
   
-  <body style="background-color:#1c77ac; background-image:url(images/light.png); background-repeat:no-repeat; background-position:center top; overflow:hidden;">
-
-
+  <body style="background-color:#1c77ac; background-image:url(${pageContext.request.contextPath}/resources/back/images/light.png); background-repeat:no-repeat; background-position:center top; overflow:hidden;">
 
     <div id="mainBody">
       <div id="cloud1" class="cloud"></div>
