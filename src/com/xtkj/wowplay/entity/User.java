@@ -21,7 +21,7 @@ public class User implements Serializable{
 	private int id;				//用户ID
 	private String userName;	//用户名
 	private String realName;	//用户真实姓名
-	private String password;	//密码
+	private String passWord;	//密码
 	private String sex;			//性别
 	private Date birthday;		//生日
 	private String state;		//角色启用状态
@@ -66,12 +66,12 @@ public class User implements Serializable{
 	}
 
 	@Column(name="PASSWORD",length=100)
-	public String getPassword() {
-		return password;
+	public String getPassWord() {
+		return passWord;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
 	}
 
 	@Column(name="SEX",length=20)

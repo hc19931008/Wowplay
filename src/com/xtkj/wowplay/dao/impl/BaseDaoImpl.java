@@ -89,9 +89,9 @@ public class BaseDaoImpl implements BaseDao {
 	@Override
 	public <T> List<T> findByHql(String hql, Object[] value) {
 		Query query=this.querySession().createQuery(hql);
-		for(int i=0;i<value.length;i++){
-			query.setParameter(i,value[i]);
-		}
+			for(int i=0;i<value.length;i++){
+				query.setParameter(i,value[i]);
+			}
 		return query.list();
 	}
 

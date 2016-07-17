@@ -18,8 +18,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="description" content="This is my page">
 	
 	
-	<script language="JavaScript" src="${pageContext.request.contextPath}/resources/back/js/jquery.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/back/js/cloud.js" type="text/javascript"></script>
+	<script language="JavaScript" src="<%=basePath%>/resources/back/js/jquery.js"></script>
+	<script src="<%=basePath%>/resources/back/js/cloud.js" type="text/javascript"></script>
 
 	<script language="javascript">
 		$(function(){
@@ -30,9 +30,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	});  
 	</script> 
 
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/back/css/style.css" type="text/css"></link></head>
+  <link rel="stylesheet" href="<%=basePath%>/resources/back/css/style.css" type="text/css"></link></head>
   
-  <body style="background-color:#1c77ac; background-image:url(${pageContext.request.contextPath}/resources/back/images/light.png); background-repeat:no-repeat; background-position:center top; overflow:hidden;">
+  <body style="background-color:#1c77ac; background-image:url(<%=basePath%>/resources/back/images/light.png); background-repeat:no-repeat; background-position:center top; overflow:hidden;">
 
     <div id="mainBody">
       <div id="cloud1" class="cloud"></div>
@@ -55,11 +55,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        
     <div class="loginbox">
     
+    <form action="${pageContext.request.contextPath}/back/BackLogin_checkLogin.action" method="post" name="form">
     <ul>
-    <li><input name="" type="text" class="loginuser" value="admin" onclick="JavaScript:this.value=''"/></li>
-    <li><input name="" type="text" class="loginpwd" value="密码" onclick="JavaScript:this.value=''"/></li>
-    <li><input name="" type="button" class="loginbtn" value="登录"  onclick="javascript:window.location='main.html'"  /><label><input name="" type="checkbox" value="" checked="checked" />记住密码</label><label><a href="#">忘记密码？</a></label></li>
+    <li><input name="userName" type="text" class="loginuser" value="admin" onclick="JavaScript:this.value=''"/></li>
+    <li><input name="passWord" type="password" class="loginpwd" value="密码" onclick="JavaScript:this.value=''"/></li>
+    <li><input name="" type="button" class="loginbtn" value="登录"  onclick="javascript:form.submit()"  />
+    		<!-- <label><input name="" type="checkbox" value="" checked="checked" />记住密码</label>
+    		<label><a href="#">忘记密码？</a></label> -->
+    	<input name="" type="button" class="loginbtn" value="返回前台"  onclick="javascript:window.location='#'"  />
+    </li>
     </ul>
+    </form>
     
     
     </div>

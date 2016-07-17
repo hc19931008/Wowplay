@@ -36,7 +36,13 @@
 		<action name="*_*" method="{2}" class="com.xtkj.wowplay.action.{1}Action">
 		<result name="index">/views/front/index.jsp</result>
 		</action>
-
+	</package>
+	
+	<package name="back" namespace="/back" extends="json-default">
+		<action name="*_*" method="{2}" class="com.xtkj.wowplay.action.{1}Action">
+		<result name="success">/views/back/success.jsp</result>
+		<result name="fail">/views/back/fail.jsp</result>
+		</action>
 	</package>
 
 </struts>
